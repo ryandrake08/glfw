@@ -201,6 +201,8 @@ typedef struct _GLFWlibraryX11
     int             screen;
     Window          root;
 
+    // System content scale
+    float           contentScaleX, contentScaleY;
     // Helper window for IPC
     Window          helperWindowHandle;
     // Invisible cursor for hidden cursor mode

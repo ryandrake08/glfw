@@ -58,6 +58,11 @@ windows with @ref glfwSetWindowAttrib.
 @see @ref window_attribs
 
 
+@subsection news_33_contentscale Content scale queries for DPI-aware rendering
+
+GLFW now supports 
+
+
 @subsection news_33_inithint Support for initialization hints
 
 GLFW now supports setting library initialization hints with @ref glfwInitHint

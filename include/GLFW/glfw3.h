@@ -1921,6 +1921,28 @@ GLFWAPI void glfwGetMonitorPos(GLFWmonitor* monitor, int* xpos, int* ypos);
  */
 GLFWAPI void glfwGetMonitorPhysicalSize(GLFWmonitor* monitor, int* widthMM, int* heightMM);
 
+/*! @brief Retrieves the content scale for the specified monitor.
+ *
+ *  This function retrieves the content scale for the specified monitor.  The
+ *  content scale will be explained in this paragraph before this is merged.
+ *
+ *  @param[in] monitor The monitor to query.
+ *  @param[out] xscale Where to store the x-axis content scale, or `NULL`.
+ *  @param[out] yscale Where to store the y-axis content scale, or `NULL`.
+ *
+ *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED.
+ *
+ *  @thread_safety This function may be called from any thread.  Access is not
+ *  synchronized.
+ *
+ *  @sa @ref glfwGetWindowContentScale
+ *
+ *  @since Added in version 3.3.
+ *
+ *  @ingroup monitor
+ */
+GLFWAPI void glfwGetMonitorContentScale(GLFWmonitor* monitor, float* xscale, float* yscale);
+
 /*! @brief Returns the name of the specified monitor.
  *
  *  This function returns a human-readable name, encoded as UTF-8, of the
@@ -2768,6 +2790,28 @@ GLFWAPI void glfwGetFramebufferSize(GLFWwindow* window, int* width, int* height)
  *  @ingroup window
  */
 GLFWAPI void glfwGetWindowFrameSize(GLFWwindow* window, int* left, int* top, int* right, int* bottom);
+
+/*! @brief Retrieves the content scale for the specified window.
+ *
+ *  This function retrieves the content scale for the specified window.  The
+ *  content scale will be explained in this paragraph before this is merged.
+ *
+ *  @param[in] window The window to query.
+ *  @param[out] xscale Where to store the x-axis content scale, or `NULL`.
+ *  @param[out] yscale Where to store the y-axis content scale, or `NULL`.
+ *
+ *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED.
+ *
+ *  @thread_safety This function may be called from any thread.  Access is not
+ *  synchronized.
+ *
+ *  @sa @ref glfwGetMonitorContentScale
+ *
+ *  @since Added in version 3.3.
+ *
+ *  @ingroup window
+ */
+GLFWAPI void glfwGetWindowContentScale(GLFWwindow* window, float* xscale, float* yscale);
 
 /*! @brief Iconifies the specified window.
  *

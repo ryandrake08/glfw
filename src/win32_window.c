@@ -1291,6 +1291,31 @@ void _glfwPlatformGetWindowFrameSize(_GLFWwindow* window,
         *bottom = rect.bottom - height;
 }
 
+void _glfwPlatformGetWindowContentScale(_GLFWwindow* window,
+                                        float* xscale, float* yscale)
+{
+    UINT xdpi, ydpi;
+
+    if (IsWindows8Point1OrGreater())
+    {
+        GetDpiForMonitor(MonitorFromWindow(window->win32.handle,
+                                           MONITOR_DEFAULTTONEAREST),
+                         MDT_EFFECTIVE_DPI,
+                         &xdpi, &ydpi);
+    }
+    else
+    {
+        const HDC dc = GetDC(NULL);
+        xdpi = GetDeviceCaps(dc, LOGPIXELSX);
+        ydpi = GetDeviceCaps(dc, LOGPIXELSY);
+    }
+
+    if (xscale)
+        *xscale = xdpi / 96.f;
+    if (yscale)
+        *yscale = ydpi / 96.f;
+}
+
 void _glfwPlatformIconifyWindow(_GLFWwindow* window)
 {
     ShowWindow(window->win32.handle, SW_MINIMIZE);

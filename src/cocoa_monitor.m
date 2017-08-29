@@ -360,6 +360,15 @@ void _glfwPlatformGetMonitorPos(_GLFWmonitor* monitor, int* xpos, int* ypos)
         *ypos = (int) bounds.origin.y;
 }
 
+void _glfwPlatformGetMonitorContentScale(_GLFWmonitor* monitor,
+                                         float* xscale, float* yscale)
+{
+    // Get scale factor from IOFB (unlikely) or NSScreen (probably)
+    // Probably cache NSScreen since people _will_ use this per frame
+    // Re-match all NSScreen objects on each monitor poll
+    // Watch out for display replacement breaking NSScreen matching
+}
+
 GLFWvidmode* _glfwPlatformGetVideoModes(_GLFWmonitor* monitor, int* count)
 {
     CFArrayRef modes;

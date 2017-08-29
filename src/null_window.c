@@ -139,6 +139,11 @@ void _glfwPlatformGetWindowFrameSize(_GLFWwindow* window,
 {
 }
 
+void _glfwPlatformGetWindowContentScale(_GLFWwindow* window,
+                                        float* xscale, float* yscale)
+{
+}
+
 void _glfwPlatformIconifyWindow(_GLFWwindow* window)
 {
 }

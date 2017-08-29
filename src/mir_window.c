@@ -515,6 +515,11 @@ void _glfwPlatformGetWindowSize(_GLFWwindow* window, int* width, int* height)
         *height = window->mir.height;
 }
 
+void _glfwPlatformGetWindowContentScale(_GLFWwindow* window,
+                                        float* xscale, float* yscale)
+{
+}
+
 void _glfwPlatformIconifyWindow(_GLFWwindow* window)
 {
     MirWindowSpec* spec;

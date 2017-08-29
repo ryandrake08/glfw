@@ -324,6 +324,26 @@ void _glfwPlatformGetMonitorPos(_GLFWmonitor* monitor, int* xpos, int* ypos)
         *ypos = dm.dmPosition.y;
 }
 
+void _glfwPlatformGetMonitorContentScale(_GLFWmonitor* monitor,
+                                         float* xscale, float* yscale)
+{
+    UINT xdpi, ydpi;
+
+    if (IsWindows8Point1OrGreater())
+        GetDpiForMonitor(monitor->win32.handle, MDT_EFFECTIVE_DPI, &xdpi, &ydpi);
+    else
+    {
+        const HDC dc = GetDC(NULL);
+        xdpi = GetDeviceCaps(dc, LOGPIXELSX);
+        ydpi = GetDeviceCaps(dc, LOGPIXELSY);
+    }
+
+    if (xscale)
+        *xscale = xdpi / 96.f;
+    if (yscale)
+        *yscale = ydpi / 96.f;
+}
+
 GLFWvidmode* _glfwPlatformGetVideoModes(_GLFWmonitor* monitor, int* count)
 {
     int modeIndex = 0, size = 0;

@@ -121,6 +121,13 @@ typedef enum PROCESS_DPI_AWARENESS
     PROCESS_SYSTEM_DPI_AWARE = 1,
     PROCESS_PER_MONITOR_DPI_AWARE = 2
 } PROCESS_DPI_AWARENESS;
+typedef enum MONITOR_DPI_TYPE
+{
+    MDT_EFFECTIVE_DPI = 0,
+    MDT_ANGULAR_DPI = 1,
+    MDT_RAW_DPI = 2,
+    MDT_DEFAULT = MDT_EFFECTIVE_DPI
+} MONITOR_DPI_TYPE;
 #endif /*DPI_ENUMS_DECLARED*/
 
 // HACK: Define versionhelpers.h functions manually as MinGW lacks the header
@@ -206,7 +213,9 @@ typedef HRESULT (WINAPI * PFN_DwmFlush)(VOID);
 
 // shcore.dll function pointer typedefs
 typedef HRESULT (WINAPI * PFN_SetProcessDpiAwareness)(PROCESS_DPI_AWARENESS);
+typedef HRESULT (WINAPI * PFN_GetDpiForMonitor)(HMONITOR,MONITOR_DPI_TYPE,UINT*,UINT*);
 #define SetProcessDpiAwareness _glfw.win32.shcore.SetProcessDpiAwareness_
+#define GetDpiForMonitor _glfw.win32.shcore.GetDpiForMonitor_
 
 typedef VkFlags VkWin32SurfaceCreateFlagsKHR;
 
@@ -312,6 +321,7 @@ typedef struct _GLFWlibraryWin32
     struct {
         HINSTANCE                       instance;
         PFN_SetProcessDpiAwareness      SetProcessDpiAwareness_;
+        PFN_GetDpiForMonitor            GetDpiForMonitor_;
     } shcore;
 
 } _GLFWlibraryWin32;
