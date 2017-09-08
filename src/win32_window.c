@@ -880,19 +880,6 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg,
             break;
         }
 
-        case WM_DPICHANGED:
-        {
-            RECT* rect = (RECT*) lParam;
-            SetWindowPos(window->win32.handle,
-                         HWND_TOP,
-                         rect->left,
-                         rect->top,
-                         rect->right - rect->left,
-                         rect->bottom - rect->top,
-                         SWP_NOACTIVATE | SWP_NOZORDER);
-            break;
-        }
-
         case WM_DROPFILES:
         {
             HDROP drop = (HDROP) wParam;
@@ -1294,26 +1281,9 @@ void _glfwPlatformGetWindowFrameSize(_GLFWwindow* window,
 void _glfwPlatformGetWindowContentScale(_GLFWwindow* window,
                                         float* xscale, float* yscale)
 {
-    UINT xdpi, ydpi;
-
-    if (IsWindows8Point1OrGreater())
-    {
-        GetDpiForMonitor(MonitorFromWindow(window->win32.handle,
-                                           MONITOR_DEFAULTTONEAREST),
-                         MDT_EFFECTIVE_DPI,
-                         &xdpi, &ydpi);
-    }
-    else
-    {
-        const HDC dc = GetDC(NULL);
-        xdpi = GetDeviceCaps(dc, LOGPIXELSX);
-        ydpi = GetDeviceCaps(dc, LOGPIXELSY);
-    }
-
-    if (xscale)
-        *xscale = xdpi / 96.f;
-    if (yscale)
-        *yscale = ydpi / 96.f;
+    const HANDLE handle = MonitorFromWindow(window->win32.handle,
+                                            MONITOR_DEFAULTTONEAREST);
+    _glfwGetMonitorContentScaleWin32(handle, xscale, yscale);
 }
 
 void _glfwPlatformIconifyWindow(_GLFWwindow* window)
